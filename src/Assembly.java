@@ -3,13 +3,15 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
 
 
 public class Assembly {
-public static void main(String[]args) throws Exception {
+public static <JSONParser, JSONObject> void main(String[]args) throws Exception {
     Transcript transcript = new Transcript();
 
-    transcript.setAudio_url("https://github.com/AssemblyAI-Examples/audio-examples/raw/main/20230607_me_canadian_wildfires.mp3");
+//    transcript.setAudio_url("https://github.com/AssemblyAI-Examples/audio-examples/raw/main/20230607_me_canadian_wildfires.mp3");
+    transcript.setAudio_url("https://github.com/vinicius-delfin/audio_files/raw/master/israel-hamas-war-api-test.mp3");
     transcript.setContent_safety(true);
 
     Gson gson = new Gson();
@@ -17,7 +19,7 @@ public static void main(String[]args) throws Exception {
 
     HttpRequest postRequest = HttpRequest.newBuilder()
     .uri(new URI("https://api.assemblyai.com/v2/transcript"))
-    .header("authorization", "46d88cbeb93a4bb9b3a45d5a67a998ea")
+    .header("Authorization", "46d88cbeb93a4bb9b3a45d5a67a998ea")
     .POST(HttpRequest.BodyPublishers.ofString(jsonRequest)).build();
 
     HttpClient client = HttpClient.newHttpClient();
@@ -27,7 +29,7 @@ public static void main(String[]args) throws Exception {
 
     HttpRequest getRequest = HttpRequest.newBuilder()
             .uri(new URI("https://api.assemblyai.com/v2/transcript/" + transcript.getId()))
-            .header("authorization", "46d88cbeb93a4bb9b3a45d5a67a998ea")
+            .header("Authorization", "46d88cbeb93a4bb9b3a45d5a67a998ea")
             .build();
 
     while (!"completed".equals(transcript.getStatus()) && !"error".equals(transcript.getStatus())) {
@@ -38,7 +40,7 @@ public static void main(String[]args) throws Exception {
     }
 
     System.out.println("Transcription completed");
-    System.out.println(transcript.getText());
-
-    }
+    Map<String, Double> summary = transcript.getContent_safety_labels().getSummary();
+    System.out.println(summary);
+}
 }
