@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
     private String text;
-    private List<Label> labels;
+    private ArrayList<Label> labels;
     private int sentences_idx_start;
     private int sentences_idx_end;
     private Timestamp timestamp;
@@ -15,11 +16,11 @@ public class Result {
         this.text = text;
     }
 
-    public List<Label> getLabels() {
+    public ArrayList<Label> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<Label> labels) {
+    public void setLabels(ArrayList<Label> labels) {
         this.labels = labels;
     }
 
