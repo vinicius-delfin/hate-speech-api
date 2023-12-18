@@ -19,7 +19,7 @@ public static <JSONParser, JSONObject> void main(String[]args) throws Exception 
 
     HttpRequest postRequest = HttpRequest.newBuilder()
     .uri(new URI("https://api.assemblyai.com/v2/transcript"))
-    .header("Authorization", "46d88cbeb93a4bb9b3a45d5a67a998ea")
+    .header("Authorization", "****")
     .POST(HttpRequest.BodyPublishers.ofString(jsonRequest)).build();
 
     HttpClient client = HttpClient.newHttpClient();
@@ -29,7 +29,7 @@ public static <JSONParser, JSONObject> void main(String[]args) throws Exception 
 
     HttpRequest getRequest = HttpRequest.newBuilder()
             .uri(new URI("https://api.assemblyai.com/v2/transcript/" + transcript.getId()))
-            .header("Authorization", "46d88cbeb93a4bb9b3a45d5a67a998ea")
+            .header("Authorization", "****")
             .build();
 
     while (!"completed".equals(transcript.getStatus()) && !"error".equals(transcript.getStatus())) {
